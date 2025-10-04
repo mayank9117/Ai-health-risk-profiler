@@ -1,0 +1,66 @@
+{
+  "info": {
+    "name": "AI-Powered Health Risk Profiler",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "http://localhost:3000/health", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["health"] }
+      }
+    },
+    {
+      "name": "Parse - JSON",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"age\": 42,\n  \"smoker\": true,\n  \"exercise\": \"rarely\",\n  \"diet\": \"high sugar\"\n}"
+        },
+        "url": { "raw": "http://localhost:3000/parse", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["parse"] }
+      }
+    },
+    {
+      "name": "Extract Factors",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"age\": 42,\n  \"smoker\": true,\n  \"exercise\": \"rarely\",\n  \"diet\": \"high sugar\"\n}"
+        },
+        "url": { "raw": "http://localhost:3000/extract-factors", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["extract-factors"] }
+      }
+    },
+    {
+      "name": "Classify Risk",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"factors\": [\"smoking\", \"poor diet\", \"low exercise\"]\n}"
+        },
+        "url": { "raw": "http://localhost:3000/classify-risk", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["classify-risk"] }
+      }
+    },
+    {
+      "name": "Recommendations",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"risk_level\": \"high\",\n  \"factors\": [\"smoking\", \"poor diet\", \"low exercise\"]\n}"
+        },
+        "url": { "raw": "http://localhost:3000/recommendations", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["recommendations"] }
+      }
+    }
+  ]
+}
+
+

@@ -1,0 +1,41 @@
+### Health
+GET http://localhost:3000/health
+
+### Parse JSON
+POST http://localhost:3000/parse
+Content-Type: application/json
+
+{
+  "smoking": "yes",
+  "diet": "poor",
+  "exercise": "low"
+}
+
+### Extract Factors
+POST http://localhost:3000/extract-factors
+Content-Type: application/json
+
+{
+  "smoking": "yes",
+  "diet": "poor",
+  "exercise": "low"
+}
+
+### Classify Risk
+POST http://localhost:3000/classify-risk
+Content-Type: application/json
+
+{
+  "factors": ["smoking", "poor diet", "low exercise"]
+}
+
+### Recommendations
+POST http://localhost:3000/recommendations
+Content-Type: application/json
+
+{
+  "risk_level": "high",
+  "factors": ["smoking", "poor diet", "low exercise"]
+}
+
+
