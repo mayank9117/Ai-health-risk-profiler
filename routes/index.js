@@ -1,41 +1,30 @@
 
 const express = require('express');
-// import { handleExtract } from '../controllers/extractFactorsController';
-
-const parseController = require('../controllers/parseController');
-const extractFactorsController = require('../controllers/extractFactorsController');
-const classifyRiskController = require('../controllers/classifyRiskController');
-const recommendationsController = require('../controllers/recommendationsController');
+const healthAnalysisController = require('../controllers/healthAnalysisController');
 
 const router = express.Router();
 
-// POST /parse - accepts JSON or image upload
-router.post('/parse', (req, res, next) => {
-  const contentType = req.headers['content-type'] || '';
-  const isMultipart = contentType.includes('multipart/form-data');
+// Health check endpoint
+router.get('/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    service: 'AI-Powered Health Risk Profiler',
+    endpoint: '/health-analysis',
+    method: 'POST',
+    description: 'Upload an image with health data to get complete analysis'
+  });
+});
 
-  if (!isMultipart) {
-    // Handle JSON directly, avoid invoking multer for non-multipart
-    return parseController.handleParse(req, res, next);
-  }
-
+// POST /health-analysis - Single endpoint that does everything (image only)
+router.post('/health-analysis', (req, res, next) => {
   const upload = req.upload;
   if (!upload) return next(new Error('Upload middleware not initialized'));
   const single = upload.single('image');
   single(req, res, (err) => {
     if (err) return next(err);
-    parseController.handleParse(req, res, next);
+    healthAnalysisController.handleHealthAnalysis(req, res, next);
   });
 });
-
-// POST /extract-factors
-router.post('/extract-factors', extractFactorsController.handleExtract);
-
-// POST /classify-risk
-router.post('/classify-risk', classifyRiskController.handleClassify);
-
-// POST /recommendations
-router.post('/recommendations', recommendationsController.handleRecommendations);
 
 module.exports = router;
 
